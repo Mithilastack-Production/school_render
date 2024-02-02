@@ -1,0 +1,20 @@
+export const COLOR = {
+    primary:"maroon",
+    primaryDark: "#630101",
+    primaryLight:"#ab0101",
+    secondary:"#fcb737",
+    secondaryDark:"#e89804",
+    secondaryLight:"#f8ce80",
+    myBlue:"#3498db",
+    myBlueHover:"#2980b9",
+    black:"black",
+    white:"white",
+    whitesmoke:"whitesmoke",
+    green:"green",
+    red:"red",
+    skyblue:"skyblue",
+    silver:"#C0C0C0",
+    bronze:"#CD7F32",
+    gold:"#FFD700",
+    grey:"#808081"
+}
