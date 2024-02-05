@@ -70,8 +70,8 @@ export const linksData = [
     { text: "Blog", path: "/admin/blogs" },
     { text: "Contact Request", path: "/admin/contact-us" },
     { text: "Admission Request", path: "/admin/apply-admissions" },
+    { text: "Reset Password", path: "/admin/reset-password" },
     
 ];
 
-  export const backendURL = "https://schoolmithilastack.azurewebsites.net/";
   // export const backendURL = "http://school-env.eba-mrznyhip.ap-south-1.elasticbeanstalk.com";

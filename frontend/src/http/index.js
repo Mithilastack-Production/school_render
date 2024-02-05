@@ -2,8 +2,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setFalse, setSchoolName } from "../AuthSlice";
-import { backendURL } from "../Utility/Constant";
 import Cookies from "js-cookie";
+import { TOKEN_VALUE, backendURL } from "../fronendEnv";
 
 const api = axios.create({
     baseURL: backendURL,
@@ -16,6 +16,7 @@ const api = axios.create({
 
 // Login Routes
 export const login = (data) => api.post("/api/login", data);
+export const resetPassword = (data) => api.post("/api/reset-password", data);
 export const register = (data) => api.post("/api/register", data);
 
 // About Routes
@@ -142,6 +143,7 @@ export const updateSocialMedia = (id, data) =>
 export const deleteSocialMedia = (id) => api.delete(`/api/socialMedia/${id}`);
 
 // Student Birthday Routes
+export const getStudentBirthdaysAdm = () => api.get("/api/studentBirthdayAdm");
 export const getStudentBirthdays = () => api.get("/api/studentBirthday");
 export const createStudentBirthday = (data) =>
     api.post("/api/studentBirthday", data);
@@ -151,6 +153,7 @@ export const deleteStudentBirthday = (id) =>
     api.delete(`/api/studentBirthday/${id}`);
 
 // Teacher Birthday Routes
+export const getTeacherBirthdaysAdm = () => api.get("/api/teacherBirthdayAdm");
 export const getTeacherBirthdays = () => api.get("/api/teacherBirthday");
 export const createTeacherBirthday = (data) =>
     api.post("/api/teacherBirthday", data);
@@ -164,7 +167,7 @@ export const getToppers = () => api.get("/api/topper");
 export const createTopper = (data) => api.post("/api/topper", data);
 export const updateTopper = (section, data) =>
     api.put(`/api/topper/${section}`, data);
-export const deleteTopper = (section) => api.delete(`/api/topper/${section}`);
+export const deleteTopper = (id, data) => api.post(`/api/topper/${id}`, data);
 
 // Video Gallery Routes
 export const getVideoGallery = () => api.get("/api/videoGallery");
@@ -174,9 +177,8 @@ export const updateVideoGallery = (id, data) =>
 export const deleteVideoGallery = (id) => api.delete(`/api/videoGallery/${id}`);
 
 api.interceptors.request.use((config) => {
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get(TOKEN_VALUE);
     if (token) {
-        console.log(token);
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -188,11 +190,7 @@ api.interceptors.response.use(
     },
     (error) => {
         if (error.response?.status === 401) {
-            const dispatch = useDispatch();
-            dispatch(setFalse());
-            dispatch(setSchoolName(null));
-            Cookies.remove("accessToken");
-            console.log(error.response.status);
+            Cookies.remove(TOKEN_VALUE);
             window.location.reload();
         }
     }

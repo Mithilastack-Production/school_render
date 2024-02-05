@@ -6,7 +6,7 @@ import SectionName from "../CommonComponent/SectionName";
 import Button from "../CommonComponent/Button";
 import { COLOR } from "../../Utility/Colors";
 import { InnerContainer } from "../CommonStyledComponent/CommonStyledComponent";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 const AboutUs = ({ abouts, aboutsMessage }) => {
   return (

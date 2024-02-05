@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 export const OneArchORCampusContainer = ({ showDataOne, clicked ,isBlog }) => {
   return (

@@ -7,22 +7,19 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const password = require("./middleware/authMiddleware");
 const { routes } = require("./Routes");
+const {constants} = require("./backendEnv");
 
 // database imports
 const DbConnect = require("./DatabaseConnection");
 DbConnect();
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 // Middlewares
-const allowedOrigins = [
-    "https://schoolmithilastack.azurewebsites.net/",
-    // "https://www.unifiedglobalschool.com"
-];
 const corsOptions = {
     origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        if (constants.FRONTEND_URL.indexOf(origin) !== -1 || !origin) {
             callback(null, true);
         } else {
             callback(new Error("Not allowed by CORS"));
@@ -30,6 +27,7 @@ const corsOptions = {
     },
     credentials: true,
 };
+
 app.use(cookieParser());
 app.use(cors(corsOptions));
 

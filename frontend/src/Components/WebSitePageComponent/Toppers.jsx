@@ -8,9 +8,10 @@ import {
 import SectionName from "../CommonComponent/SectionName";
 import { COLOR } from "../../Utility/Colors";
 import { BirthdayCont } from "../CommonComponent/BirthdayCont";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
+import { MdDeleteOutline } from "react-icons/md";
 
-const Topper = ({ topper, topperMessage, isAdmin,deleteLink }) => {
+const Topper = ({ topper, topperMessage, isAdmin, deleteLink }) => {
     return (
         <>
             <div id="Results"></div>
@@ -35,6 +36,7 @@ const Topper = ({ topper, topperMessage, isAdmin,deleteLink }) => {
                                             key={idx}
                                             isAdmin={isAdmin}
                                             heading={item.section}
+                                            item={item}
                                             showData={item?.toppers}
                                             deleteLink={deleteLink}
                                         >
@@ -53,7 +55,7 @@ const Topper = ({ topper, topperMessage, isAdmin,deleteLink }) => {
     );
 };
 
-const TopperCard = ({ oneShowData }) => {
+const TopperCard = ({ oneShowData, isAdmin, item, id, deleteLink }) => {
     return (
         <BirthdayCard>
             <Position
@@ -77,10 +79,20 @@ const TopperCard = ({ oneShowData }) => {
                     {oneShowData.position}
                 </p>
             </Position>
-            <StudentImage src={`${backendURL}${oneShowData.src}`} alt={oneShowData.name} />
+            {isAdmin && (
+                <PositionDelete onClick={() => deleteLink(item._id, item, id)}>
+                    <MdDeleteOutline />
+                </PositionDelete>
+            )}
+            <StudentImage
+                src={`${backendURL}${oneShowData.src}`}
+                alt={oneShowData.name}
+            />
             <div>
-                <h1 style={{color:'black'}}>{oneShowData.name}</h1>
-                <h4 style={{color:'black'}}>{`${oneShowData.percentage}%`}</h4>
+                <h1 style={{ color: "black" }}>{oneShowData.name}</h1>
+                <h4
+                    style={{ color: "black" }}
+                >{`${oneShowData.percentage}%`}</h4>
             </div>
         </BirthdayCard>
     );
@@ -135,4 +147,22 @@ const Position = styled.div`
     align-items: center;
     color: ${COLOR.white};
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+`;
+const PositionDelete = styled.div`
+    height: 3rem;
+    width: 3rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    background-color: ${COLOR.red};
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${COLOR.white};
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
 `;

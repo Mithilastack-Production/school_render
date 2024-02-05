@@ -4,7 +4,7 @@ import Loading from "./Loading";
 import { toastMessage, toastWorking } from "../../Utility/Utils";
 import { COLOR } from "../../Utility/Colors";
 import { HeaderWrapper } from "../CommonStyledComponent/CommonStyledComponent";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 
 const Header = ({ links, linksMessage }) => {

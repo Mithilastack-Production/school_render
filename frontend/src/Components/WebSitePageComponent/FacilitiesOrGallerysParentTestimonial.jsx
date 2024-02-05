@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { COLOR } from "../../Utility/Colors";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 const settings = {
     variableWidth: true,

@@ -6,7 +6,7 @@ import { Button, TextArea } from "../WebSitePageComponent/Formpopup";
 import { toast } from "react-toastify";
 import { Image, ImageContainer } from "../WebSitePageComponent/AboutUs";
 import Loading from "../WebSitePageComponent/Loading";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 import { readFileAsDataURL } from "../../Utility/Utils";
 import Section from "./Section";
 import {
@@ -18,7 +18,7 @@ import {
 import {
     createStudentBirthday,
     deleteStudentBirthday,
-    getStudentBirthdays,
+    getStudentBirthdaysAdm,
     updateStudentBirthday,
 } from "../../http";
 
@@ -31,7 +31,7 @@ export default function StudentBirthday() {
         async function getLink() {
             setLoading(true);
             try {
-                const req = await getStudentBirthdays();
+                const req = await getStudentBirthdaysAdm();
                 setLinks(req.data);
             } catch (e) {
                 toast.error("Failed to load");

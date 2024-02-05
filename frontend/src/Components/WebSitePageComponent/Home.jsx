@@ -6,7 +6,7 @@ import { Container } from "../CommonStyledComponent/CommonStyledComponent";
 import { COLOR } from "../../Utility/Colors";
 import Button from "../CommonComponent/Button";
 import { toastMessage } from "../../Utility/Utils";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 const HeroSection = ({
   school,

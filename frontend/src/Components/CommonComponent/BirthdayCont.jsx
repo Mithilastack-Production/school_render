@@ -10,6 +10,7 @@ export const BirthdayCont = ({
     isBirthday,
     isAdmin,
     deleteLink,
+    item
 }) => {
     const CallChild = children;
     return (
@@ -18,7 +19,7 @@ export const BirthdayCont = ({
                 <BoldText>{heading}</BoldText>
                 {isAdmin && (
                     <span
-                        onClick={() => deleteLink(showData._id, showData)}
+                        onClick={() => deleteLink(item._id, item)}
                         style={{
                             display: "flex",
                             justifySelf: "flex-end",
@@ -41,6 +42,10 @@ export const BirthdayCont = ({
                                 <>
                                     <CallChild
                                         key={idx}
+                                        isAdmin = {isAdmin}
+                                        item={item}
+                                        id = {oneShowData._id}
+                                        deleteLink={deleteLink}
                                         oneShowData={oneShowData}
                                     />
                                 </>

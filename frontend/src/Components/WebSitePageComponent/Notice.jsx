@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Loading from "./Loading";
-import { backendURL, month } from "../../Utility/Constant";
+import {  month } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 import { Container } from "../CommonStyledComponent/CommonStyledComponent";
 import { COLOR } from "../../Utility/Colors";
 import { OneArchORCampusContainer } from "../CommonComponent/OneArchORCampusContainer";

@@ -6,7 +6,7 @@ import { Button, TextArea } from "../WebSitePageComponent/Formpopup";
 import { toast } from "react-toastify";
 import { Image, ImageContainer } from "../WebSitePageComponent/AboutUs";
 import Loading from "../WebSitePageComponent/Loading";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 import { readFileAsDataURL } from "../../Utility/Utils";
 import Section from "./Section";
 import {
@@ -15,7 +15,7 @@ import {
     SectionWrapper,
     ShowItems,
 } from "../CommonStyledComponent/CommonStyledComponent";
-import { createTeacherBirthday, deleteTeacherBirthday, getTeacherBirthdays, updateTeacherBirthday } from "../../http";
+import { createTeacherBirthday, deleteTeacherBirthday, getTeacherBirthdaysAdm, updateTeacherBirthday } from "../../http";
 
 export default function TeacherBirthday() {
     const [links, setLinks] = useState([]);
@@ -26,7 +26,7 @@ export default function TeacherBirthday() {
         async function getLink() {
             setLoading(true);
             try {
-                const req = await getTeacherBirthdays();
+                const req = await getTeacherBirthdaysAdm();
                 setLinks(req.data);
             } catch (e) {
                 toast.error("Failed to load");

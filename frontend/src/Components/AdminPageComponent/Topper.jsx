@@ -6,7 +6,7 @@ import { Button, OptionTag, Select } from "../WebSitePageComponent/Formpopup";
 import { toast } from "react-toastify";
 import { Image, ImageContainer } from "../WebSitePageComponent/AboutUs";
 import Loading from "../WebSitePageComponent/Loading";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 import { readFileAsDataURL } from "../../Utility/Utils";
 import Section from "./Section";
 import {
@@ -19,7 +19,6 @@ import {
     createTopper,
     deleteTopper,
     getToppers,
-    updateTopper,
 } from "../../http";
 import Topper from "../WebSitePageComponent/Toppers";
 
@@ -33,6 +32,10 @@ export default function TopperAdmin() {
             setLoading(true);
             try {
                 const req = await getToppers();
+                if(req.data.length === 0){
+                    setTopperMessage("Data Not Available");
+                    return;
+                }
                 setLinks(req.data);
             } catch (e) {
                 setTopperMessage("Failed to get Toppers");
@@ -64,21 +67,27 @@ export default function TopperAdmin() {
         });
     }
 
-    async function deleteLink(id, item) {
+    async function deleteLink(id, item, _id) {
         const result = window.confirm("Are you sure to delete?");
         if (!result) {
             return;
         }
         setLoading(true);
         try {
-            await deleteTopper(id);
-            removeLink(item);
-            toast("Delete successfully");
+            const res =  await deleteTopper(id,{_id});
+            if(_id){
+                replaceItem(item,res.data )
+            }else{
+                toast("Delete successfully");
+                removeLink(item);
+            }
+            
         } catch (e) {
             handleError(e, "Deletion Failed");
         }
         setLoading(false);
     }
+
     const handleError = (e, message) => {
         if (e.response) {
             toast(e.response.message);
@@ -88,10 +97,10 @@ export default function TopperAdmin() {
     };
 
     return (
-        <Section innerBackgroundColor="lightblue" sectionName={"Topper"}>
+        <Section innerBackgroundColor="lightblue" sectionName={"Topper"} >
             <SectionWrapper>
                 <FormContainer>
-                    <MyInnerComponent setNewLinks={setNewLinks} links={links} />
+                    <MyInnerComponent setNewLinks={setNewLinks} links={links} replaceItem={replaceItem} />
                 </FormContainer>
                 <ShowItems>
                     {loading ? (
@@ -108,7 +117,7 @@ export default function TopperAdmin() {
                                     </h1>
                                 </>
                             ) : (
-                                <>
+                                 <>
                                     <Topper
                                         topper={links}
                                         topperMessage={topperMessage}
@@ -129,6 +138,7 @@ function MyInnerComponent({
     isEditable = false,
     links = [],
     setNewLinks,
+    setNewItem,
     removeLink,
     replaceItem,
 }) {
@@ -193,7 +203,7 @@ function MyInnerComponent({
         setLoading(true);
         try {
             const image = await readFileAsDataURL(selectedFile);
-            const req = await createTopper({
+            const res = await createTopper({
                 section,
                 toppers: {
                     percentage,
@@ -207,7 +217,12 @@ function MyInnerComponent({
             setPercentage("");
             setPosition("");
             setSelectedFile(null);
-            setNewLinks(req.data);
+            if(id === "New Section"){
+                setNewLinks(res.data);
+            }else{
+                const item = links.filter(itm => itm._id === id);
+                replaceItem(...item,res.data)
+            }
             setSection("");
             toast("Created successfully");
         } catch (e) {
@@ -219,12 +234,12 @@ function MyInnerComponent({
     const handleError = (e, message) => {
         if (e.response) {
             toast(e.response.message);
+            toast(e.response.error);
         } else {
             toast(message);
         }
     };
 
-    console.log(id);
     return (
         <FormContainer
             style={{ borderBottom: isEditable ? "5px solid grey" : "none" }}

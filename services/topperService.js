@@ -16,6 +16,6 @@ exports.update = async (section, data) => {
     return await Topper.findOneAndUpdate({ section }, data, { new: true });
 };
 
-exports.delete = async (section) => {
-    return await Topper.findOneAndDelete({ section });
+exports.delete = async (id) => {
+    return await Topper.findOneAndDelete(id);
 };

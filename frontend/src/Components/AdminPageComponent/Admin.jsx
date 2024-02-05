@@ -128,11 +128,11 @@ const RightSection = styled.div`
     text-align: start;
     color: white;
     overflow: auto;
-    &::-webkit-scrollbar {
+    /* &::-webkit-scrollbar {
         display: none;
     }
     -ms-overflow-style: none;
-    scrollbar-width: none;
+    scrollbar-width: none; */
 `;
 
 const AdminPage = styled.div`

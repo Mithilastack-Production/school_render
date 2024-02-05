@@ -5,7 +5,7 @@ import { Container } from "../CommonStyledComponent/CommonStyledComponent";
 import { COLOR } from "../../Utility/Colors";
 import Button from "../CommonComponent/Button";
 import { InnerContainer } from "../CommonStyledComponent/CommonStyledComponent";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 const MessageFromTopManagement = ({
     messageFromTopManagement,

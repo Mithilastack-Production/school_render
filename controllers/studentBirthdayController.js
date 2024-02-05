@@ -2,12 +2,21 @@ const studentBirthdayService = require("../services/studentBirthdayService");
 const { imageSave, deleteImage } = require("../Utils/ImageSave");
 exports.getAll = async (req, res) => {
     try {
-        const studentBirthdays = await studentBirthdayService.getAll();
+        const studentBirthdays =  await studentBirthdayService.getAll();
         res.json(studentBirthdays);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-};
+}; 
+
+exports.getAllAdm = async (req, res) => {
+    try {
+        const studentBirthdays =  await studentBirthdayService.getAllAdm();
+        res.json(studentBirthdays);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}; 
 
 exports.create = async (req, res) => {
     try {

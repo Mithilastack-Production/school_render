@@ -30,6 +30,8 @@ import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import useActive from "./hooks/useActive.js";
 import TopperAdmin from "./Components/AdminPageComponent/Topper.jsx";
+import { TOKEN_VALUE } from "./fronendEnv.js";
+import ResetPassword from "./Components/AdminPageComponent/ResetPassword.jsx";
 
 const adminRoutes = [
     { path: "social-links", component: <SocialMedia /> },
@@ -53,6 +55,7 @@ const adminRoutes = [
     { path: "blogs", component: <Blog /> },
     { path: "Contact-us", component: <Contact /> },
     { path: "apply-admissions", component: <AdmissionRequest /> },
+    { path: "reset-password", component: <ResetPassword /> },
 ];
 
 const App = () => {
@@ -89,10 +92,9 @@ export default App;
 
 const PrivateRoute = ({ element }) => {
     const auth = useSelector((state) => state.auth.isAuthenticated);
-    const cookie = Cookies.get("accessToken");
+    const cookie = Cookies.get(TOKEN_VALUE);
     const isAuthenticated = auth || cookie;
     const active = useActive();
-    console.log(active);
     return isAuthenticated ? (
         <Admin active={active}> {element} </Admin>
     ) : (
@@ -102,7 +104,7 @@ const PrivateRoute = ({ element }) => {
 
 const PublicRoute = ({ element }) => {
     const auth = useSelector((state) => state.auth.isAuthenticated);
-    const cookie = Cookies.get("accessToken");
+    const cookie = Cookies.get(TOKEN_VALUE);
     const isAuthenticated = auth || cookie;
     return isAuthenticated ? <Navigate to="/admin/social-links" /> : element;
 };

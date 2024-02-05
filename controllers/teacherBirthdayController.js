@@ -8,6 +8,14 @@ exports.getAll = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+exports.getAllAdm = async (req, res) => {
+    try {
+        const teacherBirthdays = await teacherBirthdayService.getAll();
+        res.json(teacherBirthdays);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 exports.create = async (req, res) => {
     try {

@@ -12,7 +12,7 @@ import {
     deleteSocialMedia,
     updateSocialMedia,
 } from "../../http";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 import { readFileAsDataURL } from "../../Utility/Utils";
 import Section from "./Section";
 import {

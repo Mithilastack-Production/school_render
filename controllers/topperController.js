@@ -18,19 +18,16 @@ exports.create = async (req, res) => {
         const imagePath = await imageSave(image);
         req.body.toppers.src = `/storage/${imagePath}`;
         delete req.body.image;
-        const studentId = uuidv4();
         if (id !== "New Section") {
             const newTopper = await topperService.getById(id);
             newTopper.toppers.push({
-                ...req.body,
-                studentId,
+                ...req.body.toppers,
             });
             newTopper.save();
             res.json(newTopper);
         } else {
             const newTopper = await topperService.create({
                 ...req.body,
-                studentId,
             });
             res.json(newTopper);
         }
@@ -57,7 +54,17 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const deletedTopper = await topperService.delete(req.params.section);
+        const _id = req.body._id; 
+        const id = req.params.id;
+        if (_id) {
+            const newTopper = await topperService.getById(id);
+            newTopper.toppers = newTopper.toppers.filter(
+                (topper) => topper._id != _id
+            );
+            newTopper.save();
+            return res.json(newTopper);
+        }
+        const deletedTopper = await topperService.delete(req.params.id);
         if (!deletedTopper) {
             res.status(404).json({ error: "Topper section not found" });
         } else {

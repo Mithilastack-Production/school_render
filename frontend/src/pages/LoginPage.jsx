@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Components/WebSitePageComponent/Loading";
 import { login } from "../http";
 import axios from "axios";
-import { backendURL } from "../Utility/Constant";
+import { backendURL } from "../fronendEnv";
 import Cookies from "js-cookie";
 
 const AdminLogin = () => {
@@ -32,19 +32,8 @@ const AdminLogin = () => {
         }
         setLoading(true);
         try {
-            console.log("1");
-            const res = await axios.post(`${backendURL}/api/login`, {
-                email,
-                password,
-            });
-            console.log("2");
-            const { schoolName, message, accessToken } = res.data;
-
-            Cookies.set("accessToken", accessToken, {
-                expires: Date.now() + 1000 * 60 * 60 * 24,
-                secure: true,
-            });
-
+            const res = await login({email, password});
+            const { schoolName, message } = res.data;
             dispatch(setTrue());
             dispatch(setSchoolName(schoolName));
             navigate("/admin/social-links");

@@ -20,12 +20,19 @@ exports.getAll = async () => {
         0,
         0
     );
+
     return await TeacherBirthday.find({
-        dob: {
-            $gte: startOfToday,
-            $lt: endOfToday,
+        $expr: {
+            $and: [
+                { $eq: [{ $dayOfMonth: "$dob" }, today.getDate()] },
+                { $eq: [{ $month: "$dob" }, today.getMonth() + 1] }, // Months are zero-based in JavaScript Date
+            ],
         },
     }).sort({ createdAt: -1 });
+};
+
+exports.getAllAdm = async () => {
+    return await TeacherBirthday.find({}).sort({ createdAt: -1 });
 };
 
 exports.create = async (data) => {

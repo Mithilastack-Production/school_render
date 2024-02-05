@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Loading from "./Loading";
 import { COLOR } from "../../Utility/Colors";
 import { toastMessage } from "../../Utility/Utils";
-import { backendURL } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 
 const Logo = ({ school, schoolMessage }) => {
   return (

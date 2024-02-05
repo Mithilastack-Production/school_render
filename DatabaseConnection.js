@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const {constants} = require("./backendEnv");
 
 async function DbConnect() {
   try {
-    const DB_URL = process.env.DB_URL_ATLAS;
+    const DB_URL = constants.DB_URL_ATLAS;
     
     await mongoose.connect(DB_URL);
     console.log("Database Connected on", DB_URL);

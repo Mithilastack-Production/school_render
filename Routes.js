@@ -29,8 +29,8 @@ exports.routes = (app) => {
     // Login Routes
     app.post("/api/login", loginController.login);
     app.post("/api/register", loginController.register);
+    app.post("/api/reset-password", passport.authenticate("jwt", { session: false }), loginController.resetPassword);
 
-    
     // About Routes
     app.get("/api/about", aboutController.getAll);
     app.post("/api/about",passport.authenticate("jwt", { session: false }), aboutController.create);
@@ -118,11 +118,13 @@ exports.routes = (app) => {
     app.delete("/api/socialMedia/:id",passport.authenticate("jwt", { session: false }), socialMediaController.delete);
     // Student Birthdays Route
     app.get("/api/studentBirthday", studentBirthdayController.getAll);
+    app.get("/api/studentBirthdayAdm", studentBirthdayController.getAllAdm);
     app.post("/api/studentBirthday",passport.authenticate("jwt", { session: false }), studentBirthdayController.create);
     app.put("/api/studentBirthday/:id",passport.authenticate("jwt", { session: false }), studentBirthdayController.update);
     app.delete("/api/studentBirthday/:id",passport.authenticate("jwt", { session: false }), studentBirthdayController.delete);
     // Teacher Birthdays Route
     app.get("/api/teacherBirthday", teacherBirthdayController.getAll);
+    app.get("/api/teacherBirthdayAdm", teacherBirthdayController.getAllAdm);
     app.post("/api/teacherBirthday",passport.authenticate("jwt", { session: false }), teacherBirthdayController.create);
     app.put("/api/teacherBirthday/:id",passport.authenticate("jwt", { session: false }), teacherBirthdayController.update);
     app.delete("/api/teacherBirthday/:id",passport.authenticate("jwt", { session: false }), teacherBirthdayController.delete);
@@ -130,11 +132,10 @@ exports.routes = (app) => {
     app.get("/api/topper", topperController.getAll);
     app.post("/api/topper",passport.authenticate("jwt", { session: false }), topperController.create);
     app.put("/api/topper/:section",passport.authenticate("jwt", { session: false }), topperController.update);
-    app.delete("/api/topper/:section",passport.authenticate("jwt", { session: false }), topperController.delete);
+    app.post("/api/topper/:id",passport.authenticate("jwt", { session: false }), topperController.delete);
     //  videoGallery Routes
     app.get("/api/videoGallery", VideoGalleryController.getAll);
     app.post("/api/videoGallery",passport.authenticate("jwt", { session: false }), VideoGalleryController.create);
     app.put("/api/videoGallery/:id",passport.authenticate("jwt", { session: false }), VideoGalleryController.update);
     app.delete("/api/videoGallery/:id",passport.authenticate("jwt", { session: false }), VideoGalleryController.delete);
 };
-  

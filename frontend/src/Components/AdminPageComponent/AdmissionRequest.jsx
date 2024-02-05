@@ -11,7 +11,8 @@ import {
 import { toast } from "react-toastify";
 import { Image, ImageContainer } from "../WebSitePageComponent/AboutUs";
 import Loading from "../WebSitePageComponent/Loading";
-import { backendURL, month } from "../../Utility/Constant";
+import { month } from "../../Utility/Constant";
+import { backendURL } from "../../fronendEnv";
 import Section from "./Section";
 import {
     ButtonsContainer,

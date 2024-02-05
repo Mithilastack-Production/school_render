@@ -26,6 +26,8 @@ import {
     getToppers,
     getVideoGallery,
 } from "../http/index.js";
+import { useDispatch } from "react-redux";
+import { setSchoolName } from "../AuthSlice.js";
 const MessageFromTopManagement = React.lazy(() =>
     import("../Components/WebSitePageComponent/MessageFromTopManagement.jsx")
 );
@@ -129,6 +131,8 @@ const WebSite = () => {
         return null;
     };
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         (async function () {
             try {
@@ -205,7 +209,9 @@ const WebSite = () => {
             try {
                 const res = await getSchools();
                 if (res.data.length) {
-                    setSchool(res.data[0]);
+                    const schoolDetails = res.data[0];
+                    setSchool(schoolDetails);
+                    dispatch(setSchoolName(schoolDetails.name));
                 } else {
                     setSchoolMessage("School information not available");
                 }
@@ -357,7 +363,7 @@ const WebSite = () => {
                 const res = await getToppers();
                 setTopper(res.data);
                 if (res.data.length === 0) {
-                    setTeacherBirthdayMessage("No Topper");
+                    setTopperMessage("No Topper");
                 }
             } catch (err) {
                 console.log(err);
